@@ -1,2 +1,1 @@
-# PoC
-Repository Proof of Concept
+# Repository per il Proof of Concept del capitolato C1
