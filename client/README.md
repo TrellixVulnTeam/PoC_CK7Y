@@ -1,0 +1,1 @@
+# Implementazione lato client
