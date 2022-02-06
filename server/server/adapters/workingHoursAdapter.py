@@ -1,6 +1,7 @@
 from chatterbot.conversation import Statement
 from chatterbot.logic import LogicAdapter
 from server.workingHoursRequest import WorkingHoursRequest
+import requests
 
 
 class WorkingHoursAdapter(LogicAdapter):
@@ -36,10 +37,26 @@ class WorkingHoursAdapter(LogicAdapter):
             self.prev_statement = None
 
         response = self.request.parseUserInput(input_statement.text, self.prev_statement)
+        self.prev_statement = response
 
         if self.request.isReady():
-            response_statement = Statement("OK")
+            url = "https://apibot4me.imolinfo.it/v1/projects/" + self.request.project + "/activities/me"
+
+            params = dict()
+            if self.request.fromdate is not None:
+                params['from'] = self.request.fromdate
+
+            if self.request.todate is not None:
+                params['to'] = self.request.todate
+
+            responseUrl = requests.get(url, headers={"api_key": "d7918028-8a60-4138-8319-a29b7d75c647"}, params=params)
+
+            response_statement = Statement(self.request.parseResult(responseUrl))
             response_statement.confidence = 0
+
+            self.adapter = None
+            self.request = None
+            self.prev_statement = None
         else:
             response_statement = Statement(response)
             response_statement.confidence = 0
