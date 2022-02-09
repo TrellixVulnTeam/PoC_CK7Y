@@ -4,7 +4,6 @@ from django.views.generic import View
 from django.http import JsonResponse
 from chatterbot import ChatBot
 from chatterbot.ext.django_chatterbot import settings
-from chatterbot.conversation import Statement
 
 
 class ChatterBotAppView(TemplateView):
@@ -15,7 +14,6 @@ class ChatterBotApiView(View):
     """
     Provide an API endpoint to interact with ChatterBot.
     """
-
     chatterbot = ChatBot(**settings.CHATTERBOT)
 
     def post(self, request, *args, **kwargs):
@@ -29,14 +27,11 @@ class ChatterBotApiView(View):
         if 'text' not in input_data:
             return JsonResponse({
                 'text': [
-                    'The attribute "text" is required.'
+                    'Non è stato specificato nessun testo!'
                 ]
             }, status=400)
 
-        self.prevStatement = Statement(input_data.get('text'))
-
         response = self.chatterbot.get_response(input_data)
-
         response_data = response.serialize()
 
         return JsonResponse(response_data, status=200)
@@ -46,5 +41,6 @@ class ChatterBotApiView(View):
         Return data corresponding to the current conversation.
         """
         return JsonResponse({
-            'name': self.chatterbot.name
-        })
+            'name': self.chatterbot.name,
+            'text': "Ciao! Io sono Alfredo, il tuo assistente. Se hai bisogno di aiuto scrivimi \"farmacista\" :)"
+        }, status=200)

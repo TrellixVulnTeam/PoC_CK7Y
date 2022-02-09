@@ -113,7 +113,7 @@ class ChatBot(object):
         if not input_statement.search_in_response_to and input_statement.in_response_to:
             input_statement.search_in_response_to = self.storage.tagger.get_text_index_string(input_statement.in_response_to)
 
-        response = self.generate_response(input_statement, additional_response_selection_parameters)
+        response = self.generate_response(input_statement, additional_response_selection_parameters, **kwargs)
 
         # Update any response data that needs to be changed
         if persist_values_to_response:
@@ -134,7 +134,7 @@ class ChatBot(object):
 
         return response
 
-    def generate_response(self, input_statement, additional_response_selection_parameters=None):
+    def generate_response(self, input_statement, additional_response_selection_parameters=None, **kwargs):
         """
         Return a response based on a given input statement.
 

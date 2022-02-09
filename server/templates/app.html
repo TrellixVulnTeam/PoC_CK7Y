@@ -2,7 +2,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>Django ChatterBot Example</title>
+    <title>Imola Informatica ChatBot</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/custom.css' %}"/>
   </head>
@@ -65,9 +65,33 @@
 
       function createRow(text) {
         var $row = $('<li class="list-group-item"></li>');
+        var $pre = $('<pre></pre>');
+        $pre.text(text)
 
-        $row.text(text);
+        $row.append($pre);
         $chatlog.append($row);
+      }
+
+      function getFirstMessage() {
+          var $submit = $.ajax({
+            type: 'GET',
+            url: chatterbotUrl,
+            contentType: 'application/json'
+            });
+
+        $submit.done(function(statement) {
+            createRow(statement.text);
+
+            // Clear the input field
+            $input.val('');
+
+            // Scroll to the bottom of the chat interface
+            $chatlog[0].scrollTop = $chatlog[0].scrollHeight;
+        });
+
+        $submit.fail(function() {
+          // TODO: Handle errors
+        });
       }
 
       function submitInput() {
@@ -82,6 +106,7 @@
           type: 'POST',
           url: chatterbotUrl,
           data: JSON.stringify(inputData),
+            headers: {"Authorization": "d7918028-8a60-4138-8319-a29b7d75c647"},
           contentType: 'application/json'
         });
 
@@ -105,10 +130,16 @@
       });
 
       $input.keydown(function(event) {
-        // Submit the input when the enter button is pressed
-        if (event.keyCode == 13) {
-          submitInput();
-        }
+              // Submit the input when the enter button is pressed
+              if (event.keyCode == 13) {
+                  submitInput();
+              }
+          }
+      );
+
+      $(document).ready(function () {
+          getFirstMessage();
+          $input.focus()
       });
     </script>
   </body>

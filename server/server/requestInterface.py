@@ -2,6 +2,12 @@ from requests import Response
 
 
 class RequestInterface:
+    def __init__(self, **kwargs):
+        self.quitting = None
+
+    def isQuitting(self):
+        return self.isQuitting
+
     def isReady(self) -> bool:
         """Check if the object is ready for the request"""
         pass

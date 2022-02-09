@@ -5,12 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d135495c-d473-449e-9a4d-0ef14031bf21" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/server/adapters/helpAdapter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatterbot/chatterbot.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatterbot/chatterbot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatterbot/comparisons.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatterbot/comparisons.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatterbot/logic/logic_adapter.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatterbot/logic/logic_adapter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatterbot/tagging.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatterbot/tagging.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/adapters/messageNotRecognizableAdapter.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/adapters/messageNotRecognizableAdapter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/adapters/workingHoursAdapter.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/adapters/workingHoursAdapter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/requestInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/requestInterface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/workingHoursRequest.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/workingHoursRequest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/custom.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/app.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/app.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +52,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -89,7 +100,10 @@
       <option name="presentableId" value="Default" />
       <updated>1644069307564</updated>
       <workItem from="1644069316486" duration="8130000" />
-      <workItem from="1644154647684" duration="7101000" />
+      <workItem from="1644154647684" duration="7193000" />
+      <workItem from="1644162946005" duration="239000" />
+      <workItem from="1644181543974" duration="722000" />
+      <workItem from="1644352621689" duration="13971000" />
     </task>
     <servers />
   </component>
@@ -106,5 +120,28 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/server/adapters/workingHoursAdapter.py</url>
+          <line>30</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/chatterbot/chatterbot.py</url>
+          <line>74</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

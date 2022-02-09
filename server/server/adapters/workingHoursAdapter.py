@@ -7,9 +7,10 @@ import requests
 class WorkingHoursAdapter(LogicAdapter):
     def __init__(self, chatbot, **kwargs):
         super().__init__(chatbot, **kwargs)
-        self.prev_statement = None
-        self.adapter = None
+        self.prev_statement: str = None
+        self.adapter: str = None
         self.request = None
+        self.apiKey: str = "d7918028-8a60-4138-8319-a29b7d75c647"
 
     def can_process(self, statement):
         if self.adapter is not None:
@@ -17,16 +18,12 @@ class WorkingHoursAdapter(LogicAdapter):
 
         hoursWords = ['ore', 'numero di ore']
         workWords = ['consuntivato', 'registrato', 'fatto', 'consuntivate', 'fatte']
-        # projectWords = ['progetto']
 
-        if not any(x in statement.text.split() for x in hoursWords):
+        if not any(statement.text.lower().find(check) > -1 for check in hoursWords):
             return False
 
-        if not any(x in statement.text.split() for x in workWords):
+        if not any(statement.text.lower().find(check) > -1 for check in workWords):
             return False
-
-        # if not any(x in statement.text.split() for x in projectWords):
-        #    return False
 
         return True
 
@@ -36,7 +33,11 @@ class WorkingHoursAdapter(LogicAdapter):
             self.request = WorkingHoursRequest()
             self.prev_statement = None
 
+        # if apiKey is not None:
+        #     self.apiKey = apiKey
+
         response = self.request.parseUserInput(input_statement.text, self.prev_statement)
+        response
         self.prev_statement = response
 
         if self.request.isReady():
@@ -49,7 +50,7 @@ class WorkingHoursAdapter(LogicAdapter):
             if self.request.todate is not None:
                 params['to'] = self.request.todate
 
-            responseUrl = requests.get(url, headers={"api_key": "d7918028-8a60-4138-8319-a29b7d75c647"}, params=params)
+            responseUrl = requests.get(url, headers={"api_key": self.apiKey}, params=params)
 
             response_statement = Statement(self.request.parseResult(responseUrl))
             response_statement.confidence = 0
@@ -58,6 +59,11 @@ class WorkingHoursAdapter(LogicAdapter):
             self.request = None
             self.prev_statement = None
         else:
+            if self.request.isQuitting:
+                self.adapter = None
+                self.request = None
+                self.prev_statement = None
+
             response_statement = Statement(response)
             response_statement.confidence = 0
 

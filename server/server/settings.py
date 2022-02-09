@@ -58,10 +58,13 @@ CHATTERBOT = {
     'name': 'Imola Informatica ChatBot',
     'django_app_name': 'django_chatterbot',
     'logic_adapters': [{
-        'import_path': 'server.adapters.workingHoursAdapter.WorkingHoursAdapter',
-    },
+            'import_path': 'server.adapters.workingHoursAdapter.WorkingHoursAdapter'
+        },
         {
-        'import_path': 'server.adapters.messageNotRecognizableAdapter.MessageNotRecognizableAdapter'
+            'import_path': 'server.adapters.messageNotRecognizableAdapter.MessageNotRecognizableAdapter'
+        },
+        {
+            'import_path': 'server.adapters.helpAdapter.HelpAdapter'
         }
     ]
 }

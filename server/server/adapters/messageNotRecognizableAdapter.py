@@ -10,4 +10,4 @@ class MessageNotRecognizableAdapter(LogicAdapter):
         return True
 
     def process(self, input_statement, additional_response_selection_parameters):
-        return Statement("messaggio non riconosciuto!")
+        return Statement("Mi dispiace, non sono in grado di interpretare questo messaggio!")
