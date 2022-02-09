@@ -12,7 +12,7 @@
         app:dateHeaderFormat="dd MMMM yyyy"
         app:incomingDefaultBubbleColor="@color/ivory"
         app:incomingDefaultBubblePressedColor="@color/ivory_dark"
-        app:incomingDefaultBubbleSelectedColor="@color/gray"
+        app:incomingDefaultBubbleSelectedColor="@color/red"
         app:incomingDefaultImageOverlayPressedColor="@color/black_10"
         app:incomingDefaultImageOverlaySelectedColor="@color/gray_transparent"
         app:incomingTextColor="@color/black"
