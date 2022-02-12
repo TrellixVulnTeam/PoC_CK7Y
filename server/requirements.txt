@@ -19,3 +19,4 @@ git+git://github.com/gunthercox/chatterbot-corpus@master#egg=chatterbot_corpus
 https://github.com/explosion/spacy-models/releases/download/it_core_news_sm-3.2.0/it_core_news_sm-3.2.0.tar.gz#egg=it_core_news_sm
 gunicorn
 requests~=2.27.1
+pyenchant~=3.2.2

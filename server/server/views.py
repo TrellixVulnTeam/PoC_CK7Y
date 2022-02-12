@@ -2,7 +2,7 @@ import json
 from django.views.generic.base import TemplateView
 from django.views.generic import View
 from django.http import JsonResponse
-from chatterbot import ChatBot
+from server.utils.ChatterBotApiKey import ChatterBotApiKey
 from chatterbot.ext.django_chatterbot import settings
 
 
@@ -14,7 +14,7 @@ class ChatterBotApiView(View):
     """
     Provide an API endpoint to interact with ChatterBot.
     """
-    chatterbot = ChatBot(**settings.CHATTERBOT)
+    chatterbot = ChatterBotApiKey(**settings.CHATTERBOT)
 
     def post(self, request, *args, **kwargs):
         """
@@ -31,7 +31,12 @@ class ChatterBotApiView(View):
                 ]
             }, status=400)
 
-        response = self.chatterbot.get_response(input_data)
+        if request.headers["Authorization"] is not None:
+            apiKey = request.headers["Authorization"]
+        else:
+            apiKey = None
+
+        response = self.chatterbot.get_response(apiKey, input_data)
         response_data = response.serialize()
 
         return JsonResponse(response_data, status=200)

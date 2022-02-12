@@ -82,7 +82,6 @@ class Statement(StatementMixin):
     )
 
     def __init__(self, text, in_response_to=None, **kwargs):
-
         self.id = kwargs.get('id')
         self.text = str(text)
         self.search_text = kwargs.get('search_text', '')

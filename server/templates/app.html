@@ -1,21 +1,19 @@
 {% load staticfiles %}
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>Imola Informatica ChatBot</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/custom.css' %}"/>
+      <link rel="icon" href="{% static 'favicon.ico' %}"/>
   </head>
   <body>
-
-    {% include 'nav.html' %}
-
     <div class="container">
 
       <div class="jumbotron mt-1">
-        <h1 class="jumbotron-heading text-xs-center">Django ChatterBot Example</h1>
+        <h1 class="jumbotron-heading text-xs-center">Imola Informatica Chatbot</h1>
         <p class="lead text-xs-center">
-          This is a web app that allows you to talk to ChatterBot.
+          Chat with me! ;)
         </p>
 
         <hr class="my-2">
@@ -63,8 +61,8 @@
       var $input = $('.js-text');
       var $sayButton = $('.js-say');
 
-      function createRow(text) {
-        var $row = $('<li class="list-group-item"></li>');
+      function createRow(text, side) {
+        var $row = $('<li class="list-group-item '+ side + '"></li>');
         var $pre = $('<pre></pre>');
         $pre.text(text)
 
@@ -100,7 +98,7 @@
         }
 
         // Display the user's input on the web page
-        createRow(inputData.text);
+        createRow(inputData.text, "right");
 
         var $submit = $.ajax({
           type: 'POST',
@@ -111,7 +109,7 @@
         });
 
         $submit.done(function(statement) {
-            createRow(statement.text);
+            createRow(statement.text, "left");
 
             // Clear the input field
             $input.val('');

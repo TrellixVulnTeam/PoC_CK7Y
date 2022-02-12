@@ -1,6 +1,7 @@
 from requests import Response
-from server.requestInterface import RequestInterface
+from server.requests.requestInterface import RequestInterface
 from datetime import datetime
+from server import utils
 import re
 
 
@@ -17,8 +18,9 @@ class WorkingHoursRequest(RequestInterface):
         if prev_statement is None:
             sanitizedWords = re.sub("[^a-zA-Z0-9 \n./]", ' ', input_statement).split()
 
-            if re.search('progetto', input_statement, re.IGNORECASE):
-                match = re.search('progetto', input_statement, re.IGNORECASE).group()
+            if utils.lev_dist(sanitizedWords, ['progetto']):
+                typo = utils.lev_dist_str(sanitizedWords, ['progetto'])
+                match = re.search(typo, input_statement, re.IGNORECASE).group()
 
                 if sanitizedWords.index(match) + 1 < len(sanitizedWords):
                     self.project = sanitizedWords[sanitizedWords.index(match) + 1]
@@ -28,14 +30,16 @@ class WorkingHoursRequest(RequestInterface):
                 for i in range(len(sanitizedWords)):
                     sanitizedWords[i] = sanitizedWords[i].lower()
 
-                if "dal" in sanitizedWords:
+                if utils.lev_dist(sanitizedWords, ['dal']):
+                    typo = utils.lev_dist_str(sanitizedWords, ['dal'])
                     self.fromdate = datetime\
-                        .strptime(sanitizedWords[sanitizedWords.index("dal") + 1], '%d/%m/%Y')\
+                        .strptime(sanitizedWords[sanitizedWords.index(typo) + 1], '%d/%m/%Y')\
                         .strftime('%Y-%m-%d')
 
-                    if "al" in sanitizedWords:
+                    if utils.lev_dist(sanitizedWords, ['al']):
+                        typo = utils.lev_dist_str(sanitizedWords, ['al'])
                         self.todate = datetime\
-                            .strptime(sanitizedWords[sanitizedWords.index("al") + 1], '%d/%m/%Y')\
+                            .strptime(sanitizedWords[sanitizedWords.index(typo) + 1], '%d/%m/%Y')\
                             .strftime('%Y-%m-%d')
             else:
                 return self.responseProjectMissing

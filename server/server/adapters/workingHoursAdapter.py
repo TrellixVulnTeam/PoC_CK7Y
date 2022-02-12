@@ -1,6 +1,8 @@
 from chatterbot.conversation import Statement
 from chatterbot.logic import LogicAdapter
-from server.workingHoursRequest import WorkingHoursRequest
+from server.utils.StatementApiKey import StatementApiKey
+from server.requests.workingHoursRequest import WorkingHoursRequest
+from server.utils.utils import lev_dist
 import requests
 
 
@@ -10,19 +12,19 @@ class WorkingHoursAdapter(LogicAdapter):
         self.prev_statement: str = None
         self.adapter: str = None
         self.request = None
-        self.apiKey: str = "d7918028-8a60-4138-8319-a29b7d75c647"
+        self.apiKey = None
 
     def can_process(self, statement):
         if self.adapter is not None:
             return True
 
-        hoursWords = ['ore', 'numero di ore']
-        workWords = ['consuntivato', 'registrato', 'fatto', 'consuntivate', 'fatte']
+        hoursWords = ['ore']
+        workWords = ['consuntivato', 'registrato', 'fatto']
 
-        if not any(statement.text.lower().find(check) > -1 for check in hoursWords):
+        if not lev_dist(statement.text.split(), hoursWords):
             return False
 
-        if not any(statement.text.lower().find(check) > -1 for check in workWords):
+        if not lev_dist(statement.text.split(), workWords):
             return False
 
         return True
@@ -33,11 +35,10 @@ class WorkingHoursAdapter(LogicAdapter):
             self.request = WorkingHoursRequest()
             self.prev_statement = None
 
-        # if apiKey is not None:
-        #     self.apiKey = apiKey
+        if isinstance(input_statement, StatementApiKey) and input_statement.apiKey is not None:
+            self.apiKey = input_statement.apiKey
 
         response = self.request.parseUserInput(input_statement.text, self.prev_statement)
-        response
         self.prev_statement = response
 
         if self.request.isReady():

@@ -89,7 +89,6 @@ class LogicAdapter(Adapter):
         The confidence value should be a number between 0 and 1 where 0 is the
         lowest confidence level and 1 is the highest.
 
-        :param apiKey: vfvfvfv
         :param statement: An input statement to be processed by the logic adapter.
         :type statement: Statement
 
