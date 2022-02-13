@@ -61,10 +61,10 @@ CHATTERBOT = {
             'import_path': 'server.adapters.workingHoursAdapter.WorkingHoursAdapter'
         },
         {
-            'import_path': 'server.adapters.messageNotRecognizableAdapter.MessageNotRecognizableAdapter'
+            'import_path': 'server.adapters.helpAdapter.HelpAdapter'
         },
         {
-            'import_path': 'server.adapters.helpAdapter.HelpAdapter'
+            'import_path': 'server.adapters.messageNotRecognizableAdapter.MessageNotRecognizableAdapter'
         }
     ]
 }

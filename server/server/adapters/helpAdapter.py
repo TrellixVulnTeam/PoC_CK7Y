@@ -28,6 +28,6 @@ class HelpAdapter(LogicAdapter):
 
     def process(self, input_statement, additional_response_selection_parameters):
         response_statement = Statement(self.helpResponse)
-        response_statement.confidence = 0.1
+        # response_statement.confidence = 0.1
 
         return response_statement

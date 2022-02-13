@@ -45,7 +45,8 @@ class ChatterBotApiView(View):
         """
         Return data corresponding to the current conversation.
         """
+
         return JsonResponse({
             'name': self.chatterbot.name,
-            'text': "Ciao! Io sono Alfredo, il tuo assistente. Se hai bisogno di aiuto scrivimi \"farmacista\" :)"
+            'text': "Ciao! Io sono Alfredo, il tuo assistente. Se hai bisogno di aiuto scrivimi \"farmacista\" :)",
         }, status=200)

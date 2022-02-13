@@ -34,6 +34,7 @@ class WorkingHoursAdapter(LogicAdapter):
             self.adapter = "WorkingHoursAdapter"
             self.request = WorkingHoursRequest()
             self.prev_statement = None
+            # funziona SOLO CON UNA PERSONA!!
 
         if isinstance(input_statement, StatementApiKey) and input_statement.apiKey is not None:
             self.apiKey = input_statement.apiKey
@@ -54,7 +55,7 @@ class WorkingHoursAdapter(LogicAdapter):
             responseUrl = requests.get(url, headers={"api_key": self.apiKey}, params=params)
 
             response_statement = Statement(self.request.parseResult(responseUrl))
-            response_statement.confidence = 0
+            # response_statement.confidence = 0.1
 
             self.adapter = None
             self.request = None
@@ -66,6 +67,6 @@ class WorkingHoursAdapter(LogicAdapter):
                 self.prev_statement = None
 
             response_statement = Statement(response)
-            response_statement.confidence = 0
+            # response_statement.confidence = 0.1
 
         return response_statement

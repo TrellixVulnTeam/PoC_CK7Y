@@ -1,8 +1,10 @@
 from requests import Response
+
 from server.requests.requestInterface import RequestInterface
 from datetime import datetime
-from server import utils
 import re
+
+from server.utils import utils
 
 
 class WorkingHoursRequest(RequestInterface):

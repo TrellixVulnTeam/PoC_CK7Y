@@ -3,6 +3,7 @@ from server.utils.StatementApiKey import StatementApiKey
 
 
 class ChatterBotApiKey(ChatBot):
+
     def __init__(self, name, **kwargs):
         super(ChatterBotApiKey, self).__init__(name, **kwargs)
 
