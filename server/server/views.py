@@ -1,5 +1,8 @@
 import json
+
+from django.utils.decorators import method_decorator
 from django.views.generic.base import TemplateView
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 from django.http import JsonResponse
 from server.utils.ChatterBotApiKey import ChatterBotApiKey
@@ -10,11 +13,14 @@ class ChatterBotAppView(TemplateView):
     template_name = 'app.html'
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class ChatterBotApiView(View):
     """
     Provide an API endpoint to interact with ChatterBot.
     """
-    chatterbot = ChatterBotApiKey(**settings.CHATTERBOT)
+    chatbots = dict()  # NON È THREAD-SAFE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ZIO BOIA!!!!
+
+    # chatterbot = ChatterBotApiKey(**settings.CHATTERBOT)
 
     def post(self, request, *args, **kwargs):
         """
@@ -36,7 +42,18 @@ class ChatterBotApiView(View):
         else:
             apiKey = None
 
-        response = self.chatterbot.get_response(apiKey, input_data)
+        # for key, value in self.chatbots.items():
+        #    print("POST BEFORE KEY = " + key)
+
+        if request.session.session_key not in self.chatbots:
+            # print("Creating chatbot POST")
+            self.chatbots[request.session.session_key] = ChatterBotApiKey(**settings.CHATTERBOT)
+
+        # for key, value in self.chatbots.items():
+        #    print("POST AFTER KEY = " + key)
+
+        # print("POST REQUEST KEY = " + request.session.session_key)
+        response = self.chatbots[request.session.session_key].get_response(apiKey, input_data)
         response_data = response.serialize()
 
         return JsonResponse(response_data, status=200)
@@ -45,8 +62,18 @@ class ChatterBotApiView(View):
         """
         Return data corresponding to the current conversation.
         """
+        # for key, value in self.chatbots.items():
+        #    print("GET BEFORE KEY = " + key)
 
+        if not request.session.session_key or request.session.session_key not in self.chatbots:
+            request.session.create()
+            # print("Creating chatbot GET")
+            self.chatbots[request.session.session_key] = ChatterBotApiKey(**settings.CHATTERBOT)
+
+        # for key, value in self.chatbots.items():
+        #    print("GET AFTER KEY = " + key)
+
+        # print("GET REQUEST KEY = " + request.session.session_key)
         return JsonResponse({
-            'name': self.chatterbot.name,
             'text': "Ciao! Io sono Alfredo, il tuo assistente. Se hai bisogno di aiuto scrivimi \"farmacista\" :)",
         }, status=200)
